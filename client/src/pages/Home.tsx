@@ -84,18 +84,18 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <div className="container py-8">
-        <div className="grid grid-cols-4 gap-6">
-          {/* Main Panel */}
-          <div className="col-span-3 space-y-6">
+      <div className="container py-8 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Main Panel - Left Column */}
+          <div className="lg:col-span-1 space-y-6">
             {/* Statistics */}
-            <div className="grid grid-cols-3 gap-4">
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base">Interactions</CardTitle>
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3 sm:gap-4">
+              <Card className="overflow-hidden">
+                <CardHeader className="pb-2 sm:pb-3">
+                  <CardTitle className="text-sm sm:text-base">Interactions</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-foreground">
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground">
                     {stats.episodes}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
@@ -104,12 +104,12 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base">Memories</CardTitle>
+              <Card className="overflow-hidden">
+                <CardHeader className="pb-2 sm:pb-3">
+                  <CardTitle className="text-sm sm:text-base">Memories</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-foreground">
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground">
                     {stats.memories}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
@@ -118,12 +118,12 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base">Reflections</CardTitle>
+              <Card className="overflow-hidden">
+                <CardHeader className="pb-2 sm:pb-3">
+                  <CardTitle className="text-sm sm:text-base">Reflections</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-foreground">
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground">
                     {stats.reflections}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
@@ -134,19 +134,19 @@ export default function Home() {
             </div>
 
             {/* Recent Interactions */}
-            <Card>
+            <Card className="lg:col-span-1">
               <CardHeader>
-                <CardTitle>Recent Interactions</CardTitle>
+                <CardTitle className="text-lg">Recent Interactions</CardTitle>
                 <CardDescription>
                   {episodes.length === 0
                     ? "No interactions yet. Create one to get started."
                     : `${episodes.length} total interactions`}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-3 sm:p-6">
                 {episodes.length === 0 ? (
-                  <div className="text-center py-12">
-                    <p className="text-muted-foreground mb-4">
+                  <div className="text-center py-8 sm:py-12">
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-4">
                       Start by creating a new interaction to prepare for a high-stakes social
                       conversation.
                     </p>
@@ -160,26 +160,26 @@ export default function Home() {
                     {episodes.slice(0, 10).map((episode) => (
                       <div
                         key={episode.id}
-                        className="p-4 border border-border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+                        className="p-3 sm:p-4 border border-border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors overflow-hidden"
                         onClick={() => navigate(`/session/${episode.id}`)}
                       >
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex-1">
-                            <h3 className="font-semibold text-foreground">
+                        <div className="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-4">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-foreground truncate">
                               {episode.title}
                             </h3>
-                            <p className="text-sm text-muted-foreground mt-1">
+                            <p className="text-xs sm:text-sm text-muted-foreground mt-1 truncate">
                               {episode.person} ({episode.relationship})
                             </p>
-                            <p className="text-sm text-foreground mt-2">
+                            <p className="text-xs sm:text-sm text-foreground mt-2 line-clamp-2">
                               {episode.goal}
                             </p>
                           </div>
-                          <div className="flex flex-col gap-2 items-end">
-                            <Badge className={getStatusColor(episode.status)}>
+                          <div className="flex flex-row sm:flex-col gap-2 items-end flex-shrink-0">
+                            <Badge className={`${getStatusColor(episode.status)} text-xs`}>
                               {episode.status}
                             </Badge>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-xs text-muted-foreground whitespace-nowrap">
                               {new Date(episode.createdAt).toLocaleDateString()}
                             </p>
                           </div>
@@ -192,14 +192,15 @@ export default function Home() {
             </Card>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
+          {/* Sidebar - Right Column */}
+          <div className="lg:col-span-3 space-y-6">
             {/* Quick Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
                 <Button
                   variant="outline"
                   className="w-full justify-start gap-2"
@@ -216,15 +217,15 @@ export default function Home() {
                   <Brain className="h-4 w-4" />
                   View Memories
                 </Button>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            {/* System Info */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">System Status</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm">
+              {/* System Info */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">System Status</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Storage Mode:</span>
                   <span className="font-semibold">localStorage</span>
@@ -237,32 +238,33 @@ export default function Home() {
                   <span className="text-muted-foreground">Memory Retrieval:</span>
                   <span className="font-semibold">Keyword Matching</span>
                 </div>
-                <div className="pt-2 border-t border-border text-xs text-muted-foreground">
-                  <p>
-                    This is a research prototype. Data is stored locally in your browser.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="pt-2 border-t border-border text-xs text-muted-foreground">
+                    <p>
+                      This is a research prototype. Data is stored locally in your browser.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
             {/* Research Info */}
             <Card className="bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-900">
-              <CardHeader>
-                <CardTitle className="text-base">Research Focus</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm text-foreground">
-                <p>
-                  CoEvoTalk explores how personal AI assistants can support reflective social
-                  interaction through:
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs">
-                  <li>Long-term relationship memory</li>
-                  <li>What-if deliberation</li>
-                  <li>Multi-perspective analysis</li>
-                  <li>Post-interaction reflection</li>
-                  <li>Adaptive learning from feedback</li>
-                </ul>
-              </CardContent>
+            <CardHeader>
+              <CardTitle className="text-base">Research Focus</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm text-foreground">
+              <p>
+                CoEvoTalk explores how personal AI assistants can support reflective social
+                interaction through:
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-xs">
+                <li>Long-term relationship memory</li>
+                <li>What-if deliberation</li>
+                <li>Multi-perspective analysis</li>
+                <li>Post-interaction reflection</li>
+                <li>Adaptive learning from feedback</li>
+              </ul>
+            </CardContent>
             </Card>
           </div>
         </div>
