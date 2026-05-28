@@ -300,6 +300,12 @@ export default function Session() {
                             <p className="text-muted-foreground font-medium">Risk:</p>
                             <p className="text-red-600 dark:text-red-400">{strategy.risk}</p>
                           </div>
+                          <div className="flex gap-2 flex-wrap mt-3 pt-3 border-t border-border">
+                            <Button size="sm" variant="outline" onClick={() => handleFeedback(`strategy-${idx}`, "useful")} className="text-xs">✓ Useful</Button>
+                            <Button size="sm" variant="outline" onClick={() => handleFeedback(`strategy-${idx}`, "inaccurate")} className="text-xs">✗ Inaccurate</Button>
+                            <Button size="sm" variant="outline" onClick={() => handleFeedback(`strategy-${idx}`, "too_strong")} className="text-xs">⬇ Too Strong</Button>
+                            <Button size="sm" variant="outline" onClick={() => handleFeedback(`strategy-${idx}`, "too_soft")} className="text-xs">⬆ Too Soft</Button>
+                          </div>
                         </div>
                       </div>
                     ))}
