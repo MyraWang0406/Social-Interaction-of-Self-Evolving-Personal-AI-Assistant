@@ -9,9 +9,11 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Brain, BarChart3, Settings } from "lucide-react";
-import { listEpisodes, getStorageStats } from "@/lib/coevotalk/storage";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Plus, Brain, BarChart3, Settings, Zap, Download } from "lucide-react";
+import { listEpisodes, getStorageStats, createEpisode } from "@/lib/coevotalk/storage";
 import type { InteractionEpisode } from "@/lib/coevotalk/types";
+import { allSampleScenarios, scenarioLabels, getAllScenarioKeys } from "@/lib/coevotalk/sampleScenarios";
 
 export default function Home() {
   const [, navigate] = useLocation();
@@ -24,12 +26,39 @@ export default function Home() {
     feedbackRecords: 0,
     debugLogs: 0,
   });
+  const [showScenarioDialog, setShowScenarioDialog] = useState(false);
 
   useEffect(() => {
     const eps = listEpisodes();
     setEpisodes(eps);
     setStats(getStorageStats());
   }, []);
+
+  const handleLoadScenario = (scenarioKey: string) => {
+    const scenario = allSampleScenarios[scenarioKey];
+    if (scenario) {
+      // Save episode
+      const episode = createEpisode({
+        title: scenario.episode.title,
+        person: scenario.episode.person,
+        relationship: scenario.episode.relationship,
+        context: scenario.episode.context,
+        goal: scenario.episode.goal,
+        concerns: scenario.episode.concerns,
+        knownEvidence: scenario.episode.knownEvidence,
+        desiredOutcome: scenario.episode.desiredOutcome,
+      });
+      
+      // Save memories
+      scenario.memories.forEach(memory => {
+        const storageKey = `memory_${memory.id}`;
+        localStorage.setItem(storageKey, JSON.stringify(memory));
+      });
+      
+      setShowScenarioDialog(false);
+      navigate(`/session/${episode.id}`);
+    }
+  };
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
@@ -43,6 +72,34 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Sample Scenario Dialog */}
+      <Dialog open={showScenarioDialog} onOpenChange={setShowScenarioDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Load Sample Scenario</DialogTitle>
+            <DialogDescription>
+              Choose a scenario to quickly test CoEvoTalk. All data will be loaded into your browser.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 gap-3 max-h-96 overflow-y-auto">
+            {getAllScenarioKeys().map((key) => (
+              <button
+                key={key}
+                onClick={() => handleLoadScenario(key)}
+                className="text-left p-4 border border-border rounded-lg hover:bg-muted transition-colors"
+              >
+                <div className="font-semibold text-foreground">
+                  Scenario {key}: {scenarioLabels[key]}
+                </div>
+                <div className="text-sm text-muted-foreground mt-1">
+                  {allSampleScenarios[key].episode.goal}
+                </div>
+              </button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Header */}
       <div className="border-b border-border bg-card">
         <div className="container py-8">
@@ -64,7 +121,7 @@ export default function Home() {
 
       {/* Navigation */}
       <div className="border-b border-border bg-muted/50">
-        <div className="container py-4 flex gap-2">
+        <div className="container py-4 flex gap-2 flex-wrap">
           <Button
             onClick={() => navigate("/new")}
             className="gap-2"
@@ -79,6 +136,22 @@ export default function Home() {
           >
             <Brain className="h-4 w-4" />
             Long-Term Memory
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() => setShowScenarioDialog(true)}
+            className="gap-2"
+          >
+            <Zap className="h-4 w-4" />
+            Load Sample Scenario
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => navigate("/export")}
+            className="gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Export Data
           </Button>
         </div>
       </div>
@@ -216,6 +289,14 @@ export default function Home() {
                 >
                   <Brain className="h-4 w-4" />
                   View Memories
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  onClick={() => setShowScenarioDialog(true)}
+                >
+                  <Zap className="h-4 w-4" />
+                  Sample Scenario
                 </Button>
                 </CardContent>
               </Card>
