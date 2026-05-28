@@ -1,0 +1,23 @@
+name = "coevotalk"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+
+[build]
+command = "pnpm build"
+cwd = "./"
+watch_paths = ["client/src/**/*.{ts,tsx,css}"]
+
+[build.upload]
+format = "service-worker"
+
+[env.production]
+name = "coevotalk-prod"
+routes = [
+  { pattern = "coevotalk.pages.dev", zone_name = "pages.dev" }
+]
+
+[[triggers.crons]]
+cron = "0 0 * * *"
