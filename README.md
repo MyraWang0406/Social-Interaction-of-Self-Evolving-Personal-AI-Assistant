@@ -126,6 +126,7 @@ User reflects after the real-world decision or interaction
 System writes or updates memory items
         ↓
 Future sessions retrieve relevant memory for more context-aware support
+```
 
 ---
 
@@ -137,6 +138,7 @@ Future sessions retrieve relevant memory for more context-aware support
 2. Click **Load Sample Scenario**.
 
 3. Select one sample scenario, such as:
+
    - career major regret;
    - AI impact on entry-level CS jobs;
    - humanities career reframing;
@@ -145,6 +147,7 @@ Future sessions retrieve relevant memory for more context-aware support
    - frontend / client / testing / operations career path.
 
 4. Review the generated deliberation, including:
+
    - situation summary;
    - hidden assumptions;
    - possible risks;
@@ -162,7 +165,7 @@ Future sessions retrieve relevant memory for more context-aware support
 
 ## Sample Scenario Directions
 
-The prototype currently focuses on reflective career and workplace decisions, including:
+The prototype currently focuses on reflective career and workplace decisions.
 
 | Scenario | Description |
 |---|---|
