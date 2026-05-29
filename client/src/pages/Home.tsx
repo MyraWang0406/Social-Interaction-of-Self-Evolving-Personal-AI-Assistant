@@ -12,7 +12,15 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Plus, Brain, BarChart3, Settings, Zap, Download, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { listEpisodes, getStorageStats, createEpisode } from "@/lib/coevotalk/storage";
+import {
+  listEpisodes,
+  getStorageStats,
+  createEpisode,
+  saveDeliberation,
+  saveMemoryItem,
+  retrieveRelevantMemories,
+} from "@/lib/coevotalk/storage";
+import { generateMockDeliberation } from "@/lib/coevotalk/mockLLM";
 import type { InteractionEpisode } from "@/lib/coevotalk/types";
 import { allSampleScenarios, scenarioLabels, getAllScenarioKeys } from "@/lib/coevotalk/sampleScenarios";
 
