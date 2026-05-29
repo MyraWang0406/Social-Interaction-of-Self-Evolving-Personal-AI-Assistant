@@ -74,6 +74,10 @@ export default function Debug() {
     }
   };
 
+  const renderJsonNode = (obj: unknown): React.ReactNode => {
+    return renderJson(obj) as React.ReactNode;
+  };
+
   if (!match || !episode) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -155,7 +159,7 @@ export default function Debug() {
 
                   {expandedLogs.has(log.id) && (
                     <CardContent className="space-y-4 border-t border-border pt-4">
-                      {log.input && (
+                      {log.input !== undefined && log.input !== null && (
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <h4 className="font-semibold text-sm text-foreground">Input</h4>
@@ -170,7 +174,7 @@ export default function Debug() {
                             </Button>
                           </div>
                           <pre className="bg-muted p-3 rounded text-xs overflow-x-auto text-foreground">
-                            {renderJson(log.input) as any}
+                            {renderJsonNode(log.input)}
                           </pre>
                         </div>
                       )}
@@ -181,7 +185,7 @@ export default function Debug() {
                             Retrieved Memory ({log.retrievedMemory.length} items)
                           </h4>
                           <pre className="bg-muted p-3 rounded text-xs overflow-x-auto text-foreground">
-                            {renderJson(log.retrievedMemory) as any}
+                            {renderJsonNode(log.retrievedMemory)}
                           </pre>
                         </div>
                       )}
@@ -226,7 +230,7 @@ export default function Debug() {
                         </div>
                       )}
 
-                      {log.parsedOutput && (
+                      {log.parsedOutput !== undefined && log.parsedOutput !== null && (
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <h4 className="font-semibold text-sm text-foreground">Parsed Output</h4>
@@ -241,7 +245,7 @@ export default function Debug() {
                             </Button>
                           </div>
                           <pre className="bg-muted p-3 rounded text-xs overflow-x-auto text-foreground">
-                            {renderJson(log.parsedOutput) as any}
+                            {renderJsonNode(log.parsedOutput)}
                           </pre>
                         </div>
                       )}
@@ -252,7 +256,7 @@ export default function Debug() {
                             Memory Writes ({log.memoryWrites.length} items)
                           </h4>
                           <pre className="bg-muted p-3 rounded text-xs overflow-x-auto text-foreground">
-                            {renderJson(log.memoryWrites) as any}
+                            {renderJsonNode(log.memoryWrites)}
                           </pre>
                         </div>
                       )}

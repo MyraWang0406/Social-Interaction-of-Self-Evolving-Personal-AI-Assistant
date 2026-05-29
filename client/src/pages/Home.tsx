@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Plus, Brain, BarChart3, Settings, Zap, Download } from "lucide-react";
+import { Plus, Brain, BarChart3, Settings, Zap, Download, User } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { listEpisodes, getStorageStats, createEpisode } from "@/lib/coevotalk/storage";
 import type { InteractionEpisode } from "@/lib/coevotalk/types";
 import { allSampleScenarios, scenarioLabels, getAllScenarioKeys } from "@/lib/coevotalk/sampleScenarios";
@@ -27,12 +28,20 @@ export default function Home() {
     debugLogs: 0,
   });
   const [showScenarioDialog, setShowScenarioDialog] = useState(false);
+  const [participantId, setParticipantId] = useState(() => {
+    return localStorage.getItem("coevotalk_participant_id") || "P001";
+  });
 
   useEffect(() => {
     const eps = listEpisodes();
     setEpisodes(eps);
     setStats(getStorageStats());
   }, []);
+
+  const handleParticipantIdChange = (newId: string) => {
+    setParticipantId(newId);
+    localStorage.setItem("coevotalk_participant_id", newId);
+  };
 
   const handleLoadScenario = (scenarioKey: string) => {
     const scenario = allSampleScenarios[scenarioKey];
@@ -152,6 +161,14 @@ export default function Home() {
           >
             <Download className="h-4 w-4" />
             Export Data
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => navigate("/baseline")}
+            className="gap-2"
+          >
+            <Settings className="h-4 w-4" />
+            Baseline Assistant
           </Button>
         </div>
       </div>
@@ -333,8 +350,20 @@ export default function Home() {
             <CardHeader>
               <CardTitle className="text-base">Research Focus</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2 text-sm text-foreground">
-              <p>
+            <CardContent className="space-y-3 text-sm text-foreground">
+              <div className="space-y-2">
+                <label className="text-xs font-semibold text-muted-foreground">Participant ID</label>
+                <div className="flex gap-2">
+                  <User className="h-4 w-4 text-muted-foreground mt-2" />
+                  <Input
+                    value={participantId}
+                    onChange={(e) => handleParticipantIdChange(e.target.value)}
+                    placeholder="e.g., P001"
+                    className="text-xs h-8"
+                  />
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground pt-2 border-t border-border">
                 CoEvoTalk explores how personal AI assistants can support reflective social
                 interaction through:
               </p>

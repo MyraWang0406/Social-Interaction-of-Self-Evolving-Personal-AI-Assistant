@@ -40,17 +40,12 @@
 - Explore the structured analysis: hidden assumptions, stakeholder perspectives, what-if paths
 - Read the 4 communication strategies tailored to your scenario
 
-**Step 3: Give Feedback** (30 seconds)
-- Rate each strategy: Useful, Too Generic, Too Directive, Missing Context, Wrong Memory
-- Click "Save Important" to mark strategies for later
+**Step 3: Review Memories** (30 seconds)
+- Check the sidebar to see relevant past patterns
+- Understand what context is being used in this deliberation
 
-**Step 4: Open Memory Inspector** (30 seconds)
-- See how the system remembers past patterns
-- Check memory status (active, uncertain, outdated)
-- Understand what will be injected into future sessions
-
-**Step 5: Export Study Data** (30 seconds)
-- Click "Export Study Data" button
+**Step 4: Export Study Data** (30 seconds)
+- Click "Export Data" button
 - Download all research data as JSON for analysis
 
 ---
@@ -250,7 +245,7 @@ Loop continues with accumulated knowledge
   - Risk checker's concerns
 - **What-If Paths**: Different communication approaches and outcomes
 - **Communication Strategies**: 4 approaches (direct, soft, evidence-based, negotiation)
-- **Feedback Buttons**: Rate each strategy (7 feedback types)
+- **Feedback Buttons**: Rate each strategy (feedback types in development)
 - **Retrieved Memories**: Relevant past patterns (sidebar)
 
 ### 4. `/memory` - Long-Term Memory Management
@@ -258,12 +253,12 @@ Loop continues with accumulated knowledge
   - By type (communication style, relationship history, etc.)
   - By status (active, uncertain, outdated, rejected)
   - By person
-- Memory inspector showing:
+- View memory details:
   - Source episode
   - Confidence level
-  - Last used time
-  - Whether used in current deliberation
-  - Buttons: confirm, edit, reject, archive, do not remember
+  - Content and evidence
+- Update memory status (active/outdated/rejected)
+- *Advanced inspector features (confirm/edit/archive) in development*
 - Manually add new memories
 - Search across memories
 
@@ -326,14 +321,16 @@ AI's structured analysis of a situation, including assumptions, perspectives, wh
 Post-interaction documentation comparing predictions with actual outcomes.
 
 ### FeedbackRecord
-User feedback on AI outputs to improve future deliberations. Types:
+User feedback on AI outputs to improve future deliberations. Types (in development):
 - Useful
 - Too Generic
 - Too Directive
-- Missing My Context
+- Missing Context
 - Wrong Memory
-- Save as Important
+- Save Important
 - Do Not Remember
+
+*Current implementation supports legacy feedback types; new types UI in progress*
 
 ### BaselineSession
 Simple advice session from baseline assistant (for comparison studies).
@@ -401,14 +398,26 @@ git push origin main
 
 ## 📋 Current Limitations (Phase 1)
 
-- ✅ localStorage only (no database)
-- ✅ Mock LLM (deterministic output)
+### Implemented
+- ✅ localStorage-based episodes and memories
+- ✅ Mock LLM deliberation (deterministic for testing)
+- ✅ Sample scenario files (6 realistic scenarios)
+- ✅ Basic baseline assistant (/baseline page)
+- ✅ Basic client-side JSON export
+- ✅ Participant ID for pilot data tracking
+- ✅ Complete debug/audit logs
 - ✅ Keyword-based memory retrieval
-- ✅ No authentication
-- ✅ Single user per browser
-- ✅ Data export only (no import)
+
+### Still Under Development
+- 🔄 7-category feedback UI in Session page
+- 🔄 Advanced Memory Inspector (confirm/edit/reject/archive buttons)
+- 🔄 Verified sample-scenario loading flow
+- 🔄 Formal user study workflow
+- ❌ Real LLM API (OpenAI/Claude)
+- ❌ Backend database
+- ❌ User authentication
+- ❌ Multi-user support
 - ⚠️ TypeScript strict mode warnings in Debug page (cosmetic)
-- ⚠️ Memory retrieval is basic keyword matching (no embeddings)
 
 ---
 

@@ -121,9 +121,14 @@ export type FeedbackType =
   | "inaccurate"
   | "too_strong"
   | "too_soft"
-  | "too_generic"
   | "remember_this"
-  | "forget_this";
+  | "forget_this"
+  | "too_generic"
+  | "too_directive"
+  | "missing_context"
+  | "wrong_memory"
+  | "save_important"
+  | "do_not_remember";
 
 export type FeedbackRecord = {
   id: string;
