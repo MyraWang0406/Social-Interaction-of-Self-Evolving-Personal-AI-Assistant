@@ -126,7 +126,9 @@ User reflects after the real-world decision or interaction
 System writes or updates memory items
         ↓
 Future sessions retrieve relevant memory for more context-aware support
-How to Try in 3 Minutes
+
+
+#How to Try in 3 Minutes
 Open the live demo.
 Click Load Sample Scenario.
 Select one sample scenario.
