@@ -51,31 +51,56 @@ export default function Home() {
     localStorage.setItem("coevotalk_participant_id", newId);
   };
 
-  const handleLoadScenario = (scenarioKey: string) => {
-    const scenario = allSampleScenarios[scenarioKey];
-    if (scenario) {
-      // Save episode
-      const episode = createEpisode({
-        title: scenario.episode.title,
-        person: scenario.episode.person,
-        relationship: scenario.episode.relationship,
-        context: scenario.episode.context,
-        goal: scenario.episode.goal,
-        concerns: scenario.episode.concerns,
-        knownEvidence: scenario.episode.knownEvidence,
-        desiredOutcome: scenario.episode.desiredOutcome,
-      });
-      
-      // Save memories
-      scenario.memories.forEach(memory => {
-        const storageKey = `memory_${memory.id}`;
-        localStorage.setItem(storageKey, JSON.stringify(memory));
-      });
-      
-      setShowScenarioDialog(false);
-      navigate(`/session/${episode.id}`);
-    }
-  };
+const handleLoadScenario = (scenarioKey: string) => {
+  const scenario = allSampleScenarios[scenarioKey];
+
+  if (!scenario) return;
+
+  // 1. Create episode
+  const episode = createEpisode({
+    title: scenario.episode.title,
+    person: scenario.episode.person,
+    relationship: scenario.episode.relationship,
+    context: scenario.episode.context,
+    goal: scenario.episode.goal,
+    concerns: scenario.episode.concerns,
+    knownEvidence: scenario.episode.knownEvidence,
+    desiredOutcome: scenario.episode.desiredOutcome,
+  });
+
+  // 2. Save sample memories into the real CoEvoTalk storage object
+  scenario.memories.forEach((memory) => {
+    saveMemoryItem({
+      type: memory.type,
+      content: memory.content,
+      evidence: memory.evidence,
+      confidence: memory.confidence,
+      status: memory.status,
+      relatedPerson: memory.relatedPerson,
+      relatedEpisodeId: episode.id,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+  });
+
+  // 3. Generate and save deliberation, otherwise Session page will stay Loading
+  const memories = retrieveRelevantMemories(episode);
+  const deliberation =
+    scenario.deliberation || generateMockDeliberation(episode, memories);
+
+  saveDeliberation(episode.id, {
+    ...deliberation,
+    episodeId: episode.id,
+  });
+
+  // 4. Refresh dashboard state
+  setEpisodes(listEpisodes());
+  setStats(getStorageStats());
+
+  // 5. Go to session page
+  setShowScenarioDialog(false);
+  navigate(`/session/${episode.id}`);
+};
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
