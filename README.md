@@ -127,116 +127,171 @@ System writes or updates memory items
         ↓
 Future sessions retrieve relevant memory for more context-aware support
 
+---
 
-#How to Try in 3 Minutes
-Open the live demo.
-Click Load Sample Scenario.
-Select one sample scenario.
-Review the generated what-if deliberation.
-Try the Baseline Assistant for comparison.
-Open Long-Term Memory to inspect stored memories.
-Use Export Data to download local research data as JSON or CSV.
-Sample Scenario Directions
+## How to Try in 3 Minutes
+
+1. Open the live demo:  
+   https://self-evolving-personal-ai-assistant.myrawzm0406.online/
+
+2. Click **Load Sample Scenario**.
+
+3. Select one sample scenario, such as:
+   - career major regret;
+   - AI impact on entry-level CS jobs;
+   - humanities career reframing;
+   - mismatched work environment;
+   - offer choice among stability, growth, and pay;
+   - frontend / client / testing / operations career path.
+
+4. Review the generated deliberation, including:
+   - situation summary;
+   - hidden assumptions;
+   - possible risks;
+   - stakeholder perspectives;
+   - what-if paths;
+   - suggested strategies.
+
+5. Try the **Baseline Assistant** for comparison.
+
+6. Open **Long-Term Memory** to inspect stored memory items.
+
+7. Use **Export Data** to download local research data as JSON or CSV.
+
+---
+
+## Sample Scenario Directions
 
 The prototype currently focuses on reflective career and workplace decisions, including:
 
-regretting a college major choice;
-worrying about AI’s impact on entry-level computer science jobs;
-reframing humanities-background career options;
-recognizing mismatch in a draining work environment;
-choosing among stable, growth-oriented, and unstable job offers;
-comparing frontend, client-side, testing, operations, embedded, and industrial software paths.
+| Scenario | Description |
+|---|---|
+| Regretting a college major choice | A student reflects on whether choosing a seemingly stable major limited future options. |
+| CS student worried about AI | A student from a non-top university worries that AI may reduce demand for entry-level coding jobs. |
+| Humanities career reframing | A humanities-background student explores transferable skills and non-coding career paths. |
+| Misfit work environment | An employee reflects on whether to keep adapting, communicate, transfer, or leave. |
+| Offer choice | A job seeker compares a stable low-pay role, a growth-oriented role, and a higher-pay unstable role. |
+| Technical role direction | A junior candidate compares frontend, client-side, testing, operations, embedded, and industrial software paths. |
 
 These scenarios are designed for research demonstration only. Users should avoid entering real names, real companies, or sensitive personal information.
 
-Pages and Features
-Home
+---
+
+## Pages and Features
+
+### Home
 
 The home page provides entry points for:
 
-New Interaction;
-Load Sample Scenario;
-Baseline Assistant;
-Long-Term Memory;
-Export Data.
+- **New Interaction**
+- **Load Sample Scenario**
+- **Baseline Assistant**
+- **Long-Term Memory**
+- **Export Data**
 
 It also includes a participant ID field for pilot-study preparation.
 
-New Interaction
+### New Interaction
 
-Users can describe a high-stakes decision or social / workplace interaction. The system collects:
+Users can describe a high-stakes decision or social / workplace interaction.
 
-person or role involved;
-relationship context;
-background situation;
-user goal;
-concerns;
-known evidence;
-desired outcome.
-Session
+The system collects:
+
+| Field | Purpose |
+|---|---|
+| Person or role involved | Identifies the interaction target without requiring real names. |
+| Relationship context | Captures the social or workplace relation. |
+| Background situation | Provides the context of the decision or interaction. |
+| User goal | Clarifies what the user wants to achieve. |
+| Concerns | Records worries, uncertainties, or possible risks. |
+| Known evidence | Captures facts the user already knows. |
+| Desired outcome | Defines what a good result would look like. |
+
+### Session
 
 The session page presents structured AI deliberation, including:
 
-situation summary;
-hidden assumptions;
-possible risks;
-stakeholder perspectives;
-what-if paths;
-suggested strategies.
+- situation summary;
+- hidden assumptions;
+- possible risks;
+- stakeholder perspectives;
+- what-if paths;
+- suggested strategies.
 
-Basic feedback buttons are available. A richer feedback taxonomy is under development.
+Basic feedback buttons are available. A richer feedback taxonomy is still under development.
 
-Baseline Assistant
+### Baseline Assistant
 
 The baseline assistant provides simple direct advice without:
 
-long-term memory;
-what-if deliberation;
-multi-perspective analysis;
-post-interaction learning.
+- long-term memory;
+- what-if deliberation;
+- multi-perspective analysis;
+- post-interaction learning.
 
 It is designed as a comparison condition for future pilot studies.
 
-Long-Term Memory
+### Long-Term Memory
 
 The memory page allows users to view and filter stored memory items.
 
-A richer editable Memory Inspector is still under development. Future versions will support more explicit user control, such as confirming, editing, rejecting, archiving, or deleting memories.
+A richer editable Memory Inspector is still under development. Future versions will support more explicit user control, such as:
 
-Reflection
+- confirming memories;
+- editing memories;
+- rejecting memories;
+- archiving memories;
+- deleting or marking memories as “do not remember.”
 
-After a real-world interaction or decision, users can record what happened, what they learned, and what the assistant should remember for future support.
+### Reflection
 
-Export Data
+After a real-world interaction or decision, users can record:
+
+- what happened;
+- what went differently from expectation;
+- what they learned;
+- what the assistant should remember;
+- what should be avoided in future advice.
+
+### Export Data
 
 The export function supports local research data download for pilot-study preparation.
 
 Current export data may include:
 
-participant ID;
-interaction episodes;
-deliberation outputs;
-memory items;
-feedback records;
-reflection records;
-debug logs;
-baseline sessions;
-timestamps.
+| Data Type | Description |
+|---|---|
+| Participant ID | A local identifier for pilot-study data. |
+| Interaction episodes | User-created decision or interaction cases. |
+| Deliberation outputs | AI-generated structured reflection outputs. |
+| Memory items | Longitudinal memory records stored in localStorage. |
+| Feedback records | User feedback on AI outputs. |
+| Reflection records | Post-interaction reflections. |
+| Debug logs | Audit trail for transparency. |
+| Baseline sessions | Baseline assistant records for comparison. |
+| Timestamps | Local timestamps for exported records. |
 
 No backend database is currently used. Data is stored locally in the user’s browser.
 
-Debug / Audit Trail
+### Debug / Audit Trail
 
-The debug page is intended to make the assistant’s internal process more inspectable, including:
+The debug page is intended to make the assistant’s internal process more inspectable.
 
-user input;
-retrieved memory;
-constructed prompt;
-mock LLM response;
-parsed output;
-feedback records;
-memory writes.
-Current Architecture
+It may include:
+
+- user input;
+- retrieved memory;
+- constructed prompt;
+- mock LLM response;
+- parsed output;
+- feedback records;
+- memory writes.
+
+---
+
+## Current Architecture
+
+```text
 React / TypeScript Frontend
         ↓
 CoEvoTalk Interaction Pages
@@ -248,113 +303,159 @@ localStorage-based Data Layer
 Episodes / Memories / Feedback / Reflections / Debug Logs
         ↓
 Client-side JSON / CSV Export
-Technology Stack
-React
-TypeScript
-Vite
-Tailwind CSS
-localStorage
-Mock LLM module
-Static Express server for deployment
-Development
+```
+
+---
+
+## Technology Stack
+
+| Layer | Tool |
+|---|---|
+| Frontend | React |
+| Language | TypeScript |
+| Build Tool | Vite |
+| Styling | Tailwind CSS |
+| Storage | Browser localStorage |
+| AI Mode | Deterministic Mock LLM |
+| Deployment | Static Express server / Cloudflare Pages |
+
+---
+
+## Development
 
 Install dependencies:
 
+```bash
 pnpm install
+```
 
 Run locally:
 
+```bash
 pnpm dev
+```
 
 Type check:
 
+```bash
 pnpm check
+```
 
 Build:
 
+```bash
 pnpm build
-Why Mock LLM?
+```
+
+---
+
+## Why Mock LLM?
 
 The current prototype uses a deterministic mock LLM to make the interaction flow transparent, reproducible, and easier to evaluate during early-stage prototyping.
 
 This version is used to demonstrate:
 
-the human-AI co-evolution loop;
-what-if deliberation interface;
-memory and feedback architecture;
-baseline comparison setup;
-local research data export workflow.
+- the human-AI co-evolution loop;
+- the what-if deliberation interface;
+- the memory and feedback architecture;
+- the baseline comparison setup;
+- the local research data export workflow.
 
 Real LLM API integration is planned for a later phase after the interaction design and study workflow are stabilized.
 
-Ethics and Safety Scope
+---
+
+## Ethics and Safety Scope
 
 CoEvoTalk is designed for reflective preparation and post-interaction learning.
 
 It should not be used as:
 
-psychological therapy;
-legal advice;
-employment guarantee;
-crisis intervention;
-manipulative communication training.
+- psychological therapy;
+- legal advice;
+- employment guarantee;
+- crisis intervention;
+- manipulative communication training.
 
 Users should avoid entering real names, real companies, or sensitive personal information. In the current version, data is stored locally in the browser.
 
 The assistant is intended to help users clarify assumptions, compare options, and reflect on past decisions, while keeping final judgment and responsibility with the user.
 
-Potential Study Design
+---
 
-A future pilot study may compare:
+## Potential Study Design
 
-Condition	Description
-Baseline Assistant	Direct advice without memory or what-if deliberation
-CoEvoTalk	What-if deliberation with longitudinal memory and feedback-based adaptation
+A future pilot study may compare two conditions:
 
-Potential evaluation dimensions:
+| Condition | Description |
+|---|---|
+| Baseline Assistant | Direct advice without memory or what-if deliberation. |
+| CoEvoTalk | What-if deliberation with longitudinal memory and feedback-based adaptation. |
 
-reflection depth;
-assumption coverage;
-perspective diversity;
-perceived agency;
-decision confidence;
-cognitive load;
-trust calibration;
-memory usefulness;
-decision rationale traceability.
-Possible Design Implications
+Potential evaluation dimensions include:
+
+| Dimension | Description |
+|---|---|
+| Reflection depth | Whether users consider deeper assumptions, risks, and alternatives. |
+| Assumption coverage | Whether more hidden assumptions are surfaced. |
+| Perspective diversity | Whether users consider more stakeholders and viewpoints. |
+| Perceived agency | Whether users feel they still own the final decision. |
+| Decision confidence | Whether users feel clearer about their next step. |
+| Cognitive load | Whether the system helps or overwhelms users. |
+| Trust calibration | Whether users appropriately trust or question AI outputs. |
+| Memory usefulness | Whether retrieved memories help future decisions. |
+| Decision rationale traceability | Whether users can reconstruct why a decision was made. |
+
+---
+
+## Possible Design Implications
 
 Future analysis may explore design implications such as:
 
-Expand before recommending
+### 1. Expand before recommending
+
 Personal AI assistants should help users externalize assumptions and alternatives before giving direct advice.
-Question before assuming
+
+### 2. Question before assuming
+
 When goals, constraints, or evidence are incomplete, the assistant should ask targeted clarification questions.
-Remember evidence, not just outcomes
+
+### 3. Remember evidence, not just outcomes
+
 Long-term memory should preserve reasons, constraints, and falsified assumptions, not only final decisions.
-Keep memory inspectable
+
+### 4. Keep memory inspectable
+
 Users should be able to inspect and correct what the assistant remembers.
-Support agency, not dependency
+
+### 5. Support agency, not dependency
+
 The assistant should help users think more clearly without replacing their judgment.
-Project Positioning
+
+---
+
+## Project Positioning
 
 CoEvoTalk is not intended to be a complete commercial product at this stage.
 
 It is best understood as:
 
-an early HCI research prototype;
-a concrete RA collaboration seed;
-a pilot-study preparation tool;
-a starting point for studying self-evolving personal AI assistants.
+- an early HCI research prototype;
+- a concrete RA collaboration seed;
+- a pilot-study preparation tool;
+- a starting point for studying self-evolving personal AI assistants.
 
 The next step is not to make the assistant more general, but to make the research question, interaction mechanism, and user evaluation more rigorous.
 
-Future Work
-refine the full feedback taxonomy;
-implement editable memory controls;
-verify and polish the end-to-end sample scenario flow;
-integrate a real LLM API;
-design and conduct formative interviews;
-run a pilot comparison study;
-improve privacy and data handling;
-develop stronger design implications for HCI publication.
+---
+
+## Future Work
+
+- refine the full feedback taxonomy;
+- implement editable memory controls;
+- verify and polish the end-to-end sample scenario flow;
+- integrate a real LLM API;
+- design and conduct formative interviews;
+- run a pilot comparison study;
+- improve privacy and data handling;
+- develop stronger design implications for HCI publication.
