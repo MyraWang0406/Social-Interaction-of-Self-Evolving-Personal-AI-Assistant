@@ -129,8 +129,6 @@ System writes or updates memory items
 Future sessions retrieve relevant memory for more context-aware support
 ```
 
----
-
 ## How to Try in 3 Minutes
 
 1. Open the live demo:  
